@@ -4,26 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Screen_Capture"
-        xmlns:vm="clr-namespace:Screen_Capture.ViewModel"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:beh="clr-namespace:Screen_Capture.Core"
+        xmlns:vm="clr-namespace:Screen_Capture.MVVM.ViewModel"
+        xmlns:vw="clr-namespace:Screen_Capture.MVVM.View" 
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:beh="clr-namespace:Screen_Capture.Core" 
         mc:Ignorable="d"
         WindowStyle="None"
         Name="window"
         ResizeMode="NoResize"
-        
         Background="Transparent"
         MouseDown="Window_MouseDown"
-        Title="MainWindow" Height="450" Width="800" >
-
+        Title="MainWindow" Height="400" Width="800" >
+ 
     <Window.DataContext>
         <vm:MainViewModel></vm:MainViewModel>
     </Window.DataContext>
-
-    <i:Interaction.Behaviors>
-        <beh:EventToCommandBehavior Event="MouseLeftButtonDown"  Command="{Binding MouseLeftClick }" PassArguments="True"></beh:EventToCommandBehavior>
-    </i:Interaction.Behaviors>
     <Border>
-        
         <Border.Background>
             <LinearGradientBrush EndPoint="0.518,0.024" StartPoint="0.037,0.973">
                 <GradientStop Color="#FFBCC3C5"/>
@@ -66,27 +61,27 @@
                 -->
                 <Button Grid.Column="15" Style="{StaticResource  CloseButtonStyle}"   ></Button>
             </Grid>
-
             <Border   Grid.Row="1" Background="#FF3370D9"  >
-            <StackPanel >
-                <RadioButton  Content="Start"  Style="{StaticResource MenuButtonStyle}"></RadioButton>
-                <RadioButton  Content="New" Style="{StaticResource MenuButtonStyle}"></RadioButton>
-                <RadioButton  Content="Open" Style="{StaticResource MenuButtonStyle}"></RadioButton>
-                <RadioButton  Content="Save" Style="{StaticResource MenuButtonStyle}"></RadioButton>
-                <RadioButton  Content="Save As" Style="{StaticResource MenuButtonStyle}"></RadioButton>
-                <RadioButton  Content="Print" Style="{StaticResource MenuButtonStyle}"></RadioButton>
-                <RadioButton  Content="Option" Style="{StaticResource MenuButtonStyle}"></RadioButton>
-                <RadioButton  Content="About" Style="{StaticResource MenuButtonStyle}"></RadioButton>
-            </StackPanel>
+                <StackPanel >
+                    <RadioButton  Content="Start"  Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="New" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Open" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Save" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Save As" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Print" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Option" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="About" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                </StackPanel>
             </Border>
 
-            <ContentControl
+            <UserControl
                                             Grid.Row="1"
                                             Grid.Column="1"
-                                            Content="{Binding currentView}" Margin="0,0,0,-10"
+                                            Content="{Binding      currentview }"
                 
                             />
         </Grid>
     </Border>
+
 
 </Window>

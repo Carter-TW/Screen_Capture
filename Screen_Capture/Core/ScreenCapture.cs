@@ -60,7 +60,7 @@ namespace Screen_Capture.Core
             var handle = bmp.GetHbitmap();
             try
             {
-                return Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                return Imaging.CreateBitmapSourceFromHBitmap(handle, IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
             }
             finally { DeleteObject(handle); }
         }
@@ -72,30 +72,23 @@ namespace Screen_Capture.Core
             {
                 gfx.CopyFromScreen(bounds.X, bounds.Y, 0, 0, bounds.Size, CopyPixelOperation.SourceCopy);
              
-                DateTime now = DateTime.Now;
-                FileName += now.ToString("yyyy-MM-dd-H-m");
-                  count++;
-                bitmap.Save(@"C:\Users\88690\Pictures\"+FileName+".png");
-                FileName = "Image" + count.ToString()+"-";
+            
             }
           
-            //bitmap.Dispose();
+           
         }
         #endregion
         #region  public Function
-        public void RegionScreenShot(int x,int y,int width,int height)
+        public void SaveImage()
         {
-            hwnd = GetDC(IntPtr.Zero);
-            bounds = new Rectangle(x, y, width, height);
-            using (Graphics gfx=Graphics.FromHdc(hwnd))
-            {
-              
-                Pen dash_pen = new Pen(Color.Red, 4);
-                dash_pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dot;
-                gfx.DrawRectangle(dash_pen, bounds);
-            }
-            ReleaseDC(IntPtr.Zero, hwnd);
+            DateTime now = DateTime.Now;
+            FileName += now.ToString("yyyy-MM-dd-H-m");
+            count++;
+            bitmap.Save(@"C:\Users\88690\Pictures\" + FileName + ".png");
+            FileName = "Image" + count.ToString() + "-";
+            bitmap.Dispose();
         }
+     
         public void WindowScreennShot()
         {
             hwnd = GetForegroundWindow();
@@ -108,13 +101,34 @@ namespace Screen_Capture.Core
             bitmap = new Bitmap(bounds.Width, bounds.Height);
             ScreenShot();
         }
-        public void FullScreenShot()
+        public void RegionScreenShot(int x ,int y ,int width ,int height)
+        {
+            if (bitmap == null) return;
+            Rectangle rect = new Rectangle(x, y, width, height);
+            bitmap=bitmap.Clone(rect, bitmap.PixelFormat);
+       
+
+        }
+        public void  FullScreenShot()
         {
 
             bounds = new Rectangle((int)Screen.PrimaryScreen.Bounds.X, (int)Screen.PrimaryScreen.Bounds.Y, Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             bitmap = new Bitmap((int)bounds.Width,(int)bounds.Height);
             ScreenShot();
-            ConvertBitmapToImageSource(bitmap);
+            
+        }
+        public System.Windows.Media.ImageSource GetImageSource()
+        {
+            if (bitmap != null)
+            {
+              
+                return ConvertBitmapToImageSource(bitmap);
+            }
+            else
+            {
+                Console.WriteLine("null");
+                return null;
+            }
         }
 
         #endregion

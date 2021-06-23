@@ -4,7 +4,6 @@
              xmlns:local="clr-namespace:Screen_Capture"
              xmlns:ViewModel="clr-namespace:Screen_Capture.MVVM.ViewModel"
              xmlns:View="clr-namespace:Screen_Capture.MVVM.View"
-             
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -15,9 +14,10 @@
                 <ResourceDictionary Source="Theme/MaxButtonStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/CloseButtonStyle.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type ViewModel:StartViewModel}">
-                <View:StartView></View:StartView>
+            <DataTemplate  DataType="{x:Type ViewModel:StartViewModel}">
+                <View:StartView ></View:StartView>
             </DataTemplate>
+          
         </ResourceDictionary>
       
     </Application.Resources>

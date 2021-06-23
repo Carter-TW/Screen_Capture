@@ -4,50 +4,117 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using Screen_Capture.Core;
-using Screen_Capture.MVVM.ViewModel;
+using System.Windows.Media;
+using System.Windows.Input;
+using Screen_Capture.MVVM.View;
 
-namespace Screen_Capture.ViewModel
+namespace Screen_Capture.MVVM.ViewModel
 {
+ 
     public class MainViewModel:BaseViewModel
     {
-        private object _currentView;
-     
-        public object currentView
+
+        private CanvasWindow  _canvasWindow;
+
+        public CanvasWindow canvasWindow
         {
-            get { return _currentView; }
-            set {
-                _currentView = value;
-                OnPropertyChange(); 
-            }
+            get { return  _canvasWindow; }
+            set {  _canvasWindow = value;  OnPropertyChange(); }
         }
-        public StartViewModel StartView { get; set; }
+
+        private object    _currentview;
+
+        public object    currentview
+        {
+            get { return _currentview; }
+            set { _currentview = value; OnPropertyChange(); }
+        }
+
+        private  object _view;
+
+        public object   view
+        {
+            get { return _view; }
+            set { _view = value; OnPropertyChange(); }
+        }
+        
+
+        private ScreenCapture screen;
+     
+
+    
+        
         #region  Declare Command
+        public DelegateCommand FullScreenShot_Command
+        {
+            get { return new DelegateCommand(FullScreemShot); }
+        }
+        public DelegateCommand WindowScreenShot_Command
+        {
+            get { return new DelegateCommand(WindowScreenShot); }
+        }
+
+        public DelegateCommand<Window> RegionScreenShot_Command
+        {
+            get { return new DelegateCommand<Window>(RegionScreenShot); }
+        }
+
         public DelegateCommand<Window> MaxWindowCommand
         {
             get { return new DelegateCommand<Window>(MaxWindow); }
         }
 
-        public DelegateCommand<Window>  MiniWindowCommand
+        public DelegateCommand<Window> MiniWindowCommand
         {
-            get { return new DelegateCommand<Window>(MiniWindow ) ; }
+            get { return new DelegateCommand<Window>(MiniWindow); }
         }
-        public DelegateCommand<Window>CloseWindowCommand
+        public DelegateCommand<Window> CloseWindowCommand
         {
             get { return new DelegateCommand<Window>(CloseWindow); }
         }
-        public DelegateCommand<MouseEventArgs> MouseLeftClick
-        {
-            get { return new DelegateCommand<MouseEventArgs>(GetPosition); }
-        }
+
+
+
 
         #endregion
         #region  Command function 
+
+        private void FullScreemShot()
+        {
+          
+            screen.FullScreenShot();
+            screen.SaveImage();
+        }
+        private void WindowScreenShot()
+        {
+            screen.WindowScreennShot();
+            screen.SaveImage();
+        }
+     
+
+        private void RegionScreenShot(Window window)
+        {
+
+            //screen.RegionScreenShot(300,300,500,500);
+            // screen.SaveImage();
+
+            screen.FullScreenShot();
+            canvasWindow = new CanvasWindow();
+            CanvasView.Image = screen.GetImageSource();
+            CanvasView.screen.FullScreenShot();
+            canvasWindow.DataContext = CanvasView;
+            canvasWindow.Show();
+      
+        
+            // window.Hide();
+
+
+        }
+     
         private void MiniWindow(Window window)
         {
-            
+
             if (window != null)
             {
                 window.WindowState = WindowState.Minimized;
@@ -56,7 +123,7 @@ namespace Screen_Capture.ViewModel
 
         private void CloseWindow(Window window)
         {
-             if(window!=null)
+            if (window != null)
             {
                 window.Close();
             }
@@ -68,30 +135,19 @@ namespace Screen_Capture.ViewModel
                 if (window.WindowState == WindowState.Maximized) window.WindowState = WindowState.Normal;
                 else window.WindowState = WindowState.Maximized;
             }
-                
-        }
-
-        [System.Runtime.InteropServices.DllImport("User32")]
-        private extern static bool GetCursorPos(out MousePoint point);
-        private  struct MousePoint
-        {
-            public int x;
-            public int y;
-        };
-
-        private void GetPosition(MouseEventArgs e)
-        {
-            
 
         }
+        
+        private StartViewModel startview { get; set; }
+        private CanvasViewModel CanvasView { get; set; }
         #endregion
         public MainViewModel()
         {
-            StartView = new StartViewModel();
-            currentView = StartView;
+            screen = new ScreenCapture();
+            CanvasView = new CanvasViewModel();
+            startview = new StartViewModel();
+            currentview = startview;
+           
         }
-        
-
-
     }
 }

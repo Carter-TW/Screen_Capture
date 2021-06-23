@@ -13,6 +13,7 @@ namespace Screen_Capture.Core
         public  event PropertyChangedEventHandler  PropertyChanged;
         public void OnPropertyChange([CallerMemberName] string PropertyName=null)
         {
+           
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
         }
        

@@ -67,7 +67,11 @@
     <Compile Include="Core\DelegateCommand.cs" />
     <Compile Include="Core\EventToCommandBehavior.cs" />
     <Compile Include="Core\ScreenCapture.cs" />
+    <Compile Include="MVVM\ViewModel\CanvasViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
+    <Page Include="MVVM\View\CanvasWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\StartView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -103,6 +107,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MVVM\ViewModel\StartViewModel.cs" />
+    <Compile Include="MVVM\View\CanvasWindow.xaml.cs">
+      <DependentUpon>CanvasWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
