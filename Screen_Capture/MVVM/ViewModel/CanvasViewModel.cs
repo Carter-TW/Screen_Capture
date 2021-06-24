@@ -9,34 +9,31 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Screen_Capture.Core;
+using Screen_Capture.MVVM.View;
+
 namespace Screen_Capture.MVVM.ViewModel
 {
     public class CanvasViewModel:BaseViewModel
     {
-        private Rectangle rect;
+        #region  屬性宣告
+     
+        private Rectangle rect;  //canvas 上的矩形
         private Point start;
         private Point end;
-        private double x;
-        private double y;
-        public ScreenCapture screen { get; set; }
-        private ImageSource _image;
+        private double x;  //設定矩形的左上
+        private double y;//設定矩形的左上
+        private ImageSource _image;   //MainViewModel給的ImageSource
+
+        public Window window { get; set; }
+        public ScreenCapture screen { get; set; }  //螢幕截圖的class
         public ImageSource Image
         {
             get { return _image; }
             set { _image = value; OnPropertyChange(); }
         }
-        private bool isClose;
-        public bool IsClose
-        {
-            get { return isClose; }
-            set
-            {
-                isClose = value;
-                OnPropertyChange();
-            }
-        }
-    
 
+        #endregion
+        #region command declare
         public DelegateCommand<MouseEventArgs>  Cvs_MouseLeftButtonDown
         {
             get { return new DelegateCommand<MouseEventArgs>(MouseLeftButtonDown); }
@@ -50,22 +47,23 @@ namespace Screen_Capture.MVVM.ViewModel
         {
             get { return new DelegateCommand<MouseEventArgs>(MouseMove); }
         }
-
-
+        #endregion
+        #region  command function
         private void MouseLeftButtonDown(MouseEventArgs e)
         {
             Canvas tmp = e.Source as Canvas;
             if(tmp!=null)
             {
+              
                Point point= e.GetPosition(tmp);
                 start = new Point(point.X,point.Y);
                 end = new Point(point.X, point.Y);
-                rect = new Rectangle();
+             
                 rect.Fill = Brushes.Transparent;
                 rect.Stroke = Brushes.Red;
                 rect.StrokeThickness = 2;
                 rect.StrokeDashOffset = 2;
-                DoubleCollection c = new DoubleCollection();
+                DoubleCollection c = new DoubleCollection();  //設定Dash的間距
                 c.Add(5);
                 rect.StrokeDashArray = c;
                 Canvas.SetLeft(rect, start.X);
@@ -82,6 +80,8 @@ namespace Screen_Capture.MVVM.ViewModel
                 if (e.LeftButton == MouseButtonState.Released || rect == null) return;
                 else
                 {
+             
+                //找出最小的X 跟Y 設定給X Y  width 跟height 直接相減取絕對值
                     end = e.GetPosition(tmp);
                     x = start.X ;
                      y=start.Y;
@@ -112,22 +112,31 @@ namespace Screen_Capture.MVVM.ViewModel
                
        
         }
-
+       
         private void MouseLeftButtonUp(MouseEventArgs e)
         {
-            Canvas tmp = e.Source as Canvas;
+         
+      
+               
             
-            screen.RegionScreenShot((int)x,(int) y,(int) rect.Width, (int)rect.Height);
+            
+            var scree_width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
+            var rate = scree_width / window.ActualWidth; // 螢幕寬度/canvas 的寬度=point 座標轉換
+            
+            screen.RegionScreenShot((int)(x*rate),(int)(y*rate),(int) (rect.Width*rate), (int)(rect.Height*rate ));
             screen.SaveImage();
-            rect = null;
-            IsClose = true;
+           rect = null;
+            window.Close();
+         
             
         }
-
-
+        #endregion
+        #region  construction
         public CanvasViewModel()
         {
             screen = new ScreenCapture();
+            rect = new Rectangle();
         }
+        #endregion
     }
 }

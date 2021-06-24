@@ -10,11 +10,9 @@
         Background="Transparent"
         WindowStyle="None"
         WindowState="Maximized"
-        Title="CanvasWindow" Height="450" Width="800">
-    <i:Interaction.Behaviors>
-        <beh:EventToCommandBehavior Event="MouseLeftButtonUp"  Command="{Binding Cvs_MouseLeftButtonUp }" PassArguments="True"></beh:EventToCommandBehavior>
-    </i:Interaction.Behaviors>
-    <Canvas x:Name="canvas" >
+      >
+  
+    <Canvas x:Name="canvas"  >
         <Canvas.Background>
             <ImageBrush ImageSource="{Binding Image}"></ImageBrush>
         </Canvas.Background>

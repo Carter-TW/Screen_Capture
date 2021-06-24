@@ -14,10 +14,10 @@ namespace Screen_Capture.MVVM.ViewModel
  
     public class MainViewModel:BaseViewModel
     {
-
+        #region 屬性宣告
+        
         private CanvasWindow  _canvasWindow;
-
-        public CanvasWindow canvasWindow
+        public CanvasWindow canvasWindow  //Region 全螢幕的window
         {
             get { return  _canvasWindow; }
             set {  _canvasWindow = value;  OnPropertyChange(); }
@@ -25,26 +25,21 @@ namespace Screen_Capture.MVVM.ViewModel
 
         private object    _currentview;
 
-        public object    currentview
+        public object    currentview  //主畫面的選項後出現的view
         {
             get { return _currentview; }
             set { _currentview = value; OnPropertyChange(); }
         }
 
-        private  object _view;
+        private StartViewModel startview { get; set; } //選項畫面的ViewModel
+        private CanvasViewModel CanvasView { get; set; }   //全螢幕畫面的viewModel
+        private ScreenCapture screen;  //螢幕截圖class 
+        #endregion
 
-        public object   view
-        {
-            get { return _view; }
-            set { _view = value; OnPropertyChange(); }
-        }
-        
 
-        private ScreenCapture screen;
-     
 
-    
-        
+
+
         #region  Declare Command
         public DelegateCommand FullScreenShot_Command
         {
@@ -96,18 +91,16 @@ namespace Screen_Capture.MVVM.ViewModel
         private void RegionScreenShot(Window window)
         {
 
-            //screen.RegionScreenShot(300,300,500,500);
-            // screen.SaveImage();
+            
 
-            screen.FullScreenShot();
-            canvasWindow = new CanvasWindow();
-            CanvasView.Image = screen.GetImageSource();
-            CanvasView.screen.FullScreenShot();
-            canvasWindow.DataContext = CanvasView;
+            screen.FullScreenShot(); //先全螢幕截圖
+            canvasWindow = new CanvasWindow(); //創造canvas window
+            CanvasView.Image = screen.GetImageSource(); // imagesouce 給cvs windwo 的ViewModel
+            CanvasView.screen.FullScreenShot(); //cvs也用螢幕截圖，這樣在canvas window 上的區域截圖完成後好做截圖
+            CanvasView.window = canvasWindow; //將cvs的window給到cvs的viewModel
+            canvasWindow.DataContext = CanvasView; //將MainWindow上的cvs viewModel 給到cvs window 的DataContext 才會更新畫面
             canvasWindow.Show();
-      
-        
-            // window.Hide();
+             window.Hide();
 
 
         }
@@ -138,8 +131,7 @@ namespace Screen_Capture.MVVM.ViewModel
 
         }
         
-        private StartViewModel startview { get; set; }
-        private CanvasViewModel CanvasView { get; set; }
+     
         #endregion
         public MainViewModel()
         {

@@ -103,10 +103,12 @@ namespace Screen_Capture.Core
         }
         public void RegionScreenShot(int x ,int y ,int width ,int height)
         {
+         
             if (bitmap == null) return;
             Rectangle rect = new Rectangle(x, y, width, height);
+            
             bitmap=bitmap.Clone(rect, bitmap.PixelFormat);
-       
+            
 
         }
         public void  FullScreenShot()

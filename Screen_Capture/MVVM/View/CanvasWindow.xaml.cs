@@ -24,6 +24,7 @@ namespace Screen_Capture.MVVM.View
         {
             InitializeComponent();
             this.DataContext = new CanvasViewModel();
+          
         }
     }
 }
