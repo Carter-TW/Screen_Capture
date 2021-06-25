@@ -1,5 +1,4 @@
-﻿using Screen_Capture.MVVM.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Screen_Capture.MVVM.View
 {
     /// <summary>
-    /// CanvasWindow.xaml 的互動邏輯
+    /// ScreenShotView.xaml 的互動邏輯
     /// </summary>
-    public partial class CanvasWindow : Window
+    public partial class ScreenShotView : UserControl
     {
-        public CanvasWindow()
+        public ScreenShotView()
         {
             InitializeComponent();
-            this.DataContext = new CanvasViewModel();
-          
         }
     }
 }

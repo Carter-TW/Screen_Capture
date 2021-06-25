@@ -69,7 +69,10 @@
     <Compile Include="Core\ScreenCapture.cs" />
     <Compile Include="MVVM\ViewModel\CanvasViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
-    <Page Include="MVVM\View\CanvasWindow.xaml">
+    <Page Include="MVVM\View\CanvasView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\ScreenShotView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\StartView.xaml">
@@ -106,9 +109,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\ViewModel\ScreenShotViewModel.cs" />
     <Compile Include="MVVM\ViewModel\StartViewModel.cs" />
-    <Compile Include="MVVM\View\CanvasWindow.xaml.cs">
-      <DependentUpon>CanvasWindow.xaml</DependentUpon>
+    <Compile Include="MVVM\View\CanvasView.xaml.cs">
+      <DependentUpon>CanvasView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\ScreenShotView.xaml.cs">
+      <DependentUpon>ScreenShotView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>

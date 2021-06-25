@@ -6,40 +6,68 @@
              xmlns:local="clr-namespace:Screen_Capture.MVVM.View" xmlns:vm="clr-namespace:Screen_Capture.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <vm:MainViewModel></vm:MainViewModel>
-    </UserControl.DataContext>
     <Border>
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.518,0.024" StartPoint="0.037,0.973">
+                <GradientStop Color="#FFBCC3C5"/>
+                <GradientStop Color="#FFFBFBFF" Offset="0.641"/>
+            </LinearGradientBrush>
+        </Border.Background>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="283*"></ColumnDefinition>
-                <ColumnDefinition Width="Auto" MinWidth="74"></ColumnDefinition>
-                <ColumnDefinition Width="443*"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition ></ColumnDefinition>
+
+
             </Grid.ColumnDefinitions>
-            <Border x:Name="bor" Grid.Column="0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" BorderThickness="0,0,1,0" BorderBrush="#FFAEAAAA">
-                <Viewbox >
-                    <StackPanel  Width="{Binding ElementName=bor , Path=ActualWidth}" Height="{Binding ElementName=bor , Path=ActualHeight}">
-                        <Label Content="New task" Foreground="#1661ac" FontSize="20" Margin="10,0,0,0"></Label>
-                        <RadioButton Content="New"
-                                           Style="{StaticResource FunctionButtonStyle}"></RadioButton>
-                        <RadioButton Content="Open"
-                                            Style="{StaticResource FunctionButtonStyle}"></RadioButton>
-                        <Separator  Margin="0,5,35.381,5" Background="#FFAEAAAA"/>
-                        <Label Content="Screen Capture"  Foreground="#1661ac" FontSize="20" Margin="10,0,0,0"></Label>
-                        <RadioButton Content="Full-Screen"
-                                            Style="{StaticResource FunctionButtonStyle}"
-                                        Command="{Binding FullScreenShot_Command}"></RadioButton>
-                        <RadioButton Content="ActiveWindow"
-                                     Command="{Binding WindowScreenShot_Command}"
-                                            Style="{StaticResource FunctionButtonStyle}"></RadioButton>
-                        <RadioButton Content="Region"
-                                     Command="{Binding RegionScreenShot_Command}"
-                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window} }"
-                                            Style="{StaticResource FunctionButtonStyle}"></RadioButton>
-                    </StackPanel>
-                </Viewbox>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="14 "   Style="{StaticResource  MiniButtonStyle}"  ></Button>
+                <!--
+                <Button Grid.Column="14"   Style="{StaticResource  MaxButtonStyle}"  ></Button>
+                -->
+                <Button Grid.Column="15" Style="{StaticResource  CloseButtonStyle}"   ></Button>
+            </Grid>
+            <Border   Grid.Row="1" Background="#FF3370D9"  >
+                <StackPanel >
+                    <RadioButton  Content="Start"  Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="New" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Open" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Save" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Save As" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Print" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Option" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="About" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                </StackPanel>
             </Border>
+
+            <UserControl
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Content="{Binding     funcView   }"
+                
+                            />
         </Grid>
     </Border>
-
 </UserControl>

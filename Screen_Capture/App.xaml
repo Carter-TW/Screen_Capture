@@ -17,7 +17,12 @@
             <DataTemplate  DataType="{x:Type ViewModel:StartViewModel}">
                 <View:StartView ></View:StartView>
             </DataTemplate>
-          
+            <DataTemplate DataType="{x:Type ViewModel:ScreenShotViewModel}">
+                <View:ScreenShotView></View:ScreenShotView>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModel:CanvasViewModel}">
+                <View:CanvasView></View:CanvasView>
+            </DataTemplate>
         </ResourceDictionary>
       
     </Application.Resources>

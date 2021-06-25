@@ -13,23 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Screen_Capture
+namespace Screen_Capture.MVVM.View
 {
     /// <summary>
-    /// MainWindow.xaml 的互動邏輯
+    /// CanvasView.xaml 的互動邏輯
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CanvasView : UserControl
     {
-        public MainWindow()
+        public CanvasView()
         {
             InitializeComponent();
         }
-        
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
-        
     }
 }

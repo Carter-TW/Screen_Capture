@@ -23,10 +23,10 @@ namespace Screen_Capture.MVVM.ViewModel
         private double x;  //設定矩形的左上
         private double y;//設定矩形的左上
         private ImageSource _image;   //MainViewModel給的ImageSource
-
-        public Window window { get; set; }
+        public double window_width { get; set; } //視窗的寬度
+     
         public ScreenCapture screen { get; set; }  //螢幕截圖的class
-        public ImageSource Image
+        public ImageSource Image  //螢幕截圖的圖轉換imagesource
         {
             get { return _image; }
             set { _image = value; OnPropertyChange(); }
@@ -115,18 +115,17 @@ namespace Screen_Capture.MVVM.ViewModel
        
         private void MouseLeftButtonUp(MouseEventArgs e)
         {
-         
-      
-               
+
+  
             
             
             var scree_width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
-            var rate = scree_width / window.ActualWidth; // 螢幕寬度/canvas 的寬度=point 座標轉換
+            var rate = scree_width / window_width;  // 螢幕寬度/canvas 的寬度=point 座標轉換
             
             screen.RegionScreenShot((int)(x*rate),(int)(y*rate),(int) (rect.Width*rate), (int)(rect.Height*rate ));
             screen.SaveImage();
            rect = null;
-            window.Close();
+          
          
             
         }
