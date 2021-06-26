@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using Screen_Capture.Core;
 namespace Screen_Capture.MVVM.ViewModel
 {
@@ -33,9 +35,26 @@ namespace Screen_Capture.MVVM.ViewModel
         {
             get { return new DelegateCommand<Window>(CloseWindow); }
         }
+        public DelegateCommand<Window>Drag_Command
+        {
+            get { return new DelegateCommand<Window>(Window_MouseDown); }
+        }
         #endregion
 
         #region command function
+        public void Window_MouseDown(Window window)
+        {
+
+           
+            if (window != null)
+            {
+         
+                    window.DragMove();
+            }
+
+
+
+        }
         private void MiniWindow(Window window)
         {
 

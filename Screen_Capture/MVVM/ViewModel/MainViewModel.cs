@@ -30,7 +30,9 @@ namespace Screen_Capture.MVVM.ViewModel
             get { return _image; }
             set { _image = value; OnPropertyChange(); }
         }
-        #endregion 
+        #endregion
+
+
         public MainViewModel()
         {
             startView = new StartViewModel();

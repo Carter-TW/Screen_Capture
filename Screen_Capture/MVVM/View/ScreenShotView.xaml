@@ -13,9 +13,9 @@
                 <ColumnDefinition Width="Auto" MinWidth="74"></ColumnDefinition>
                 <ColumnDefinition Width="443*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Border x:Name="bor" Grid.Column="0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" BorderThickness="0,0,1,0" BorderBrush="#FFAEAAAA">
-                <Viewbox >
-                    <StackPanel  Width="{Binding ElementName=bor , Path=ActualWidth}" Height="{Binding ElementName=bor , Path=ActualHeight}">
+            <Border x:Name="bor" Width="283" Grid.Column="0" d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" BorderThickness="0,0,1,0" BorderBrush="#FFAEAAAA">
+               
+                    <StackPanel  >
                         <Label Content="New task" Foreground="#1661ac" FontSize="20" Margin="10,0,0,0"></Label>
                         <RadioButton Content="New"
                                            Style="{StaticResource FunctionButtonStyle}"></RadioButton>
@@ -37,7 +37,7 @@
                                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                                             Style="{StaticResource FunctionButtonStyle}"></RadioButton>
                     </StackPanel>
-                </Viewbox>
+       
             </Border>
         </Grid>
     </Border>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Screen_Capture"
         xmlns:vm="clr-namespace:Screen_Capture.MVVM.ViewModel"
         xmlns:vw="clr-namespace:Screen_Capture.MVVM.View" 
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:beh="clr-namespace:Screen_Capture.Core" 
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
         WindowStyle="None"
         Name="window"
@@ -17,7 +17,9 @@
     <Window.DataContext>
         <vm:MainViewModel></vm:MainViewModel>
     </Window.DataContext>
-    <UserControl Content="{Binding currentview}">
-        
-    </UserControl>
+  
+    <Viewbox Stretch="None">
+        <UserControl   Width="{Binding ElementName=window, Path=ActualWidth}" Height="{Binding ElementName=window, Path=ActualHeight}" Content="{Binding currentview}">
+        </UserControl>
+    </Viewbox>
 </Window>
