@@ -13,6 +13,15 @@
                 <ResourceDictionary Source="Theme/MiniButtonStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/MaxButtonStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Theme/CloseButtonStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Theme/CheckButtonStyle.xaml"/>
+                <ResourceDictionary Source="Theme/DownloadButtonStyle.xaml"/>
+                <ResourceDictionary Source="Theme/ExitButtonStyle.xaml"/>
+
+
+
+
+
+
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate  DataType="{x:Type ViewModel:StartViewModel}">
                 <View:StartView ></View:StartView>
@@ -22,6 +31,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ViewModel:CanvasViewModel}">
                 <View:CanvasView></View:CanvasView>
+            </DataTemplate>
+            <DataTemplate  DataType="{x:Type ViewModel:StoreControlViewModel}">
+                <View:StoreControlView></View:StoreControlView>
             </DataTemplate>
         </ResourceDictionary>
       

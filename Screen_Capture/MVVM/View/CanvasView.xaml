@@ -5,17 +5,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Screen_Capture.MVVM.View"
              xmlns:beh="clr-namespace:Screen_Capture.Core"
-              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d" 
+             x:Name="canvas_view"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Canvas x:Name="canvas"  >
+   
+    <Canvas x:Name="canvas"      >
+        <UserControl   Content="{Binding  finishview}" Canvas.Left="{ Binding UC_x}" Canvas.Top="{Binding UC_y}" Visibility="{Binding state}"></UserControl>
         <Canvas.Background>
             <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Image}"></ImageBrush>
         </Canvas.Background>
-        <i:Interaction.Behaviors>
-            <beh:EventToCommandBehavior Event="MouseLeftButtonDown"  Command="{Binding Cvs_MouseLeftButtonDown }" PassArguments="True"></beh:EventToCommandBehavior>
-            <beh:EventToCommandBehavior Event="MouseMove"  Command="{Binding Cvs_MouseMove }" PassArguments="True"></beh:EventToCommandBehavior>
-            <beh:EventToCommandBehavior Event="MouseLeftButtonUp"  Command="{Binding Cvs_MouseLeftButtonUp }" PassArguments="True"></beh:EventToCommandBehavior>
-        </i:Interaction.Behaviors>
+        <i:Interaction.Triggers>
+            <i:EventTrigger  EventName="MouseLeftButtonDown" >
+                <ei:CallMethodAction  TargetObject="{Binding  ElementName=canvas_view, Path=DataContext}"  MethodName="MouseLeftButtonDown"/>
+            </i:EventTrigger>
+            <i:EventTrigger  EventName="MouseMove" >
+                <ei:CallMethodAction  TargetObject="{Binding  ElementName=canvas_view, Path=DataContext}"  MethodName="MouseMove"/>
+            </i:EventTrigger>
+            <i:EventTrigger  EventName="MouseLeftButtonUp" >
+                <ei:CallMethodAction  TargetObject="{Binding  ElementName=canvas_view, Path=DataContext}"  MethodName="MouseLeftButtonUp"/>
+            </i:EventTrigger>
+
+        </i:Interaction.Triggers> 
+
+
     </Canvas>
 </UserControl>

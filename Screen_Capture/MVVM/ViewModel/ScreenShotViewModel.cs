@@ -20,13 +20,13 @@ namespace Screen_Capture.MVVM.ViewModel
 
         #endregion
         #region  Declare Command
-        public DelegateCommand FullScreenShot_Command
+        public DelegateCommand<Window> FullScreenShot_Command
         {
-            get { return new DelegateCommand(FullScreemShot); }
+            get { return new DelegateCommand<Window>(FullScreemShot); }
         }
-        public DelegateCommand WindowScreenShot_Command
+        public DelegateCommand<Window> WindowScreenShot_Command
         {
-            get { return new DelegateCommand(WindowScreenShot); }
+            get { return new DelegateCommand<Window>(WindowScreenShot); }
         }
 
         public DelegateCommand<Window> RegionScreenShot_Command
@@ -38,14 +38,15 @@ namespace Screen_Capture.MVVM.ViewModel
         #endregion
 
         #region command function 
-        private void FullScreemShot()
+        private void FullScreemShot(Window window)
         {
-
+            window.Hide(); //隱藏應用程式
             screen.FullScreenShot();
             screen.SaveImage();
         }
-        private void WindowScreenShot()
+        private void WindowScreenShot(Window window)
         {
+            window.Hide(); //隱藏應用程式
             screen.WindowScreennShot();
             screen.SaveImage();
         }
@@ -60,7 +61,6 @@ namespace Screen_Capture.MVVM.ViewModel
             CanvasView.screen = screen; //ScreenShotViewModel的screen傳給CanvasViewModel
           
             window.WindowState = WindowState.Maximized; //將放置螢幕截圖的canvas最大化
-            CanvasView.window_width = window.ActualWidth; //將window的寬傳給CanvasViewModel好做DPI的轉換
             tmp.currentview = CanvasView;
             window.DataContext = tmp;
             window.Show();

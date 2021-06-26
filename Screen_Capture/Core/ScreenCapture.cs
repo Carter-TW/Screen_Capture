@@ -10,22 +10,22 @@ using System.Windows.Interop;
 
 namespace Screen_Capture.Core
 {
-   public  class ScreenCapture
+    public class ScreenCapture
     {
-        private   const int DWMWA_EXTENDED_FRAME_BOUNDS = 9;
+        private const int DWMWA_EXTENDED_FRAME_BOUNDS = 9;
         #region  Construction
         public ScreenCapture()
         {
             count = 1;
             FileName = "Image";
-            FileName += count.ToString()+"-";
+            FileName += count.ToString() + "-";
         }
         #endregion
-        
+
         #region  Wind32 Function Declare 
 
-        [System.Runtime.InteropServices.DllImport("user32.dll")]   
-        private  static extern Boolean GetWindowRect(IntPtr hWnd, ref Rectangle bounds);  //  得到視窗大小
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern Boolean GetWindowRect(IntPtr hWnd, ref Rectangle bounds);  //  得到視窗大小
 
         [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, ExactSpelling = true)]
         private static extern IntPtr GetForegroundWindow();//  得到最上層視窗
@@ -36,20 +36,20 @@ namespace Screen_Capture.Core
 
         [System.Runtime.InteropServices.DllImport("User32.dll")]
         private static extern IntPtr GetDC(IntPtr Hwnd); //其在MSDN中原型為HDC GetDC(HWND hWnd),HDC和HWND都是驅動器句柄（長指標），在C#中只能用IntPtr代替了
-        
+
         [System.Runtime.InteropServices.DllImport("User32.dll")]
         private static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
 
 
         [System.Runtime.InteropServices.DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
         [return: System.Runtime.InteropServices.MarshalAs(System.Runtime.InteropServices.UnmanagedType.Bool)]
-        public static extern bool DeleteObject( IntPtr hObject);
+        public static extern bool DeleteObject(IntPtr hObject);
 
         #endregion
         #region  Property
-        public  IntPtr hwnd;
+        public IntPtr hwnd;
         private Rectangle bounds;
-        private Bitmap bitmap;
+        public Bitmap bitmap { get; private set; }
         private string FileName;
         private int count;
         #endregion

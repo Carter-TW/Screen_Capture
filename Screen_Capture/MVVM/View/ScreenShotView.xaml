@@ -25,9 +25,12 @@
                         <Label Content="Screen Capture"  Foreground="#1661ac" FontSize="20" Margin="10,0,0,0"></Label>
                         <RadioButton Content="Full-Screen"
                                             Style="{StaticResource FunctionButtonStyle}"
-                                        Command="{Binding FullScreenShot_Command}"></RadioButton>
+                                        Command="{Binding FullScreenShot_Command}"
+                                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
+                                     ></RadioButton>
                         <RadioButton Content="ActiveWindow"
                                      Command="{Binding WindowScreenShot_Command}"
+                                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                                             Style="{StaticResource FunctionButtonStyle}"></RadioButton>
                         <RadioButton Content="Region"
                                      Command="{Binding RegionScreenShot_Command}"

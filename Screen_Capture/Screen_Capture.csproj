@@ -38,6 +38,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicrosoftExpressionInteractions.3.0.40218.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -66,9 +69,20 @@
     <Compile Include="Core\BaseViewModel.cs" />
     <Compile Include="Core\DelegateCommand.cs" />
     <Compile Include="Core\EventToCommandBehavior.cs" />
+    <Compile Include="Core\MouseBehavior.cs" />
+    <Compile Include="Core\RoutedCommand.cs" />
     <Compile Include="Core\ScreenCapture.cs" />
     <Compile Include="MVVM\ViewModel\CanvasViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
+    <Page Include="Theme\CheckButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\DownloadButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\ExitButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\CanvasView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -76,6 +90,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\StartView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\StoreControlView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Theme\CloseButtonStyle.xaml">
@@ -111,6 +128,7 @@
   <ItemGroup>
     <Compile Include="MVVM\ViewModel\ScreenShotViewModel.cs" />
     <Compile Include="MVVM\ViewModel\StartViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\StoreControlViewModel.cs" />
     <Compile Include="MVVM\View\CanvasView.xaml.cs">
       <DependentUpon>CanvasView.xaml</DependentUpon>
     </Compile>
@@ -119,6 +137,9 @@
     </Compile>
     <Compile Include="MVVM\View\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\StoreControlView.xaml.cs">
+      <DependentUpon>StoreControlView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
