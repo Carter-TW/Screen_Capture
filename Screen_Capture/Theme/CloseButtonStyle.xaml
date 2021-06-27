@@ -58,7 +58,7 @@
             </Setter.Value>
         </Setter>
         <Setter Property="CommandParameter" Value="{Binding ElementName=window}"></Setter>
-        <Setter Property="Command" Value="{Binding  Path=CloseWindowCommand }"></Setter>
+        <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource AncestorType=Window ,Mode=FindAncestor} ,Path=DataContext.CloseWindowCommand }"></Setter>
     </Style>
 
 </ResourceDictionary>

@@ -19,7 +19,7 @@
             
         </Setter>
         <Setter Property="CommandParameter" Value="{Binding ElementName=window}"></Setter>
-        <Setter Property="Command" Value="{Binding  Path=MiniWindowCommand }"></Setter>
+        <Setter Property="Command" Value="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.MiniWindowCommand }"></Setter>
 
     </Style>
 </ResourceDictionary>

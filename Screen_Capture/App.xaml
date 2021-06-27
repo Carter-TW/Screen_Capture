@@ -16,13 +16,15 @@
                 <ResourceDictionary Source="Theme/CheckButtonStyle.xaml"/>
                 <ResourceDictionary Source="Theme/DownloadButtonStyle.xaml"/>
                 <ResourceDictionary Source="Theme/ExitButtonStyle.xaml"/>
-
-
-
-
-
-
+                <ResourceDictionary Source="TabItemStyle.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <DataTemplate DataType="{x:Type ViewModel:ImageViewModel}">
+                <View:ImageView></View:ImageView>
+            </DataTemplate>
             <DataTemplate  DataType="{x:Type ViewModel:StartViewModel}">
                 <View:StartView ></View:StartView>
             </DataTemplate>
@@ -34,6 +36,9 @@
             </DataTemplate>
             <DataTemplate  DataType="{x:Type ViewModel:StoreControlViewModel}">
                 <View:StoreControlView></View:StoreControlView>
+            </DataTemplate>
+            <DataTemplate  DataType="{x:Type ViewModel:PaintViewModel}">
+                <View:PaintView></View:PaintView>
             </DataTemplate>
         </ResourceDictionary>
       

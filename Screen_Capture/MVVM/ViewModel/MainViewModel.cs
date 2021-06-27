@@ -23,7 +23,7 @@ namespace Screen_Capture.MVVM.ViewModel
             set { _currentview = value; OnPropertyChange(); }
         }
         private StartViewModel startView { get; set; }
-       
+       private PaintViewModel paintView { get; set;  }
         private ImageSource _image;
         public ImageSource Image
         {
@@ -32,13 +32,73 @@ namespace Screen_Capture.MVVM.ViewModel
         }
         #endregion
 
+        #region Command Declare
+        public DelegateCommand<Window> MaxWindowCommand
+        {
+            get { return new DelegateCommand<Window>(MaxWindow); }
+        }
 
+        public DelegateCommand<Window> MiniWindowCommand
+        {
+            get { return new DelegateCommand<Window>(MiniWindow); }
+        }
+        public DelegateCommand<Window> CloseWindowCommand
+        {
+            get { return new DelegateCommand<Window>(CloseWindow); }
+        }
+        public DelegateCommand<Window> Drag_Command
+        {
+            get { return new DelegateCommand<Window>(Window_MouseDown); }
+        }
+        #endregion
+
+        #region command function
+        public void Window_MouseDown(Window window)
+        {
+
+
+            if (window != null)
+            {
+
+                window.DragMove();
+            }
+
+
+
+        }
+        private void MiniWindow(Window window)
+        {
+
+            if (window != null)
+            {
+                window.WindowState = WindowState.Minimized;
+            }
+        }
+
+        private void CloseWindow(Window window)
+        {
+            if (window != null)
+            {
+                window.Close();
+            }
+        }
+        private void MaxWindow(Window window)
+        {
+            if (window != null)
+            {
+                if (window.WindowState == WindowState.Maximized) window.WindowState = WindowState.Normal;
+                else window.WindowState = WindowState.Maximized;
+            }
+
+        }
+
+        #endregion
         public MainViewModel()
         {
             startView = new StartViewModel();
-            
-            currentview = startView;
-
+            paintView = new PaintViewModel();
+            currentview = paintView;
+           // currentview = startView;
         }
     }
 }
