@@ -24,5 +24,10 @@ namespace Screen_Capture.MVVM.View
         {
             InitializeComponent();
         }
+
+        private void ListBox_Selected(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("tet");
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.ComponentModel;
 
 namespace Screen_Capture.Core
 {
+ 
     public class BaseViewModel : INotifyPropertyChanged
     {
         public  event PropertyChangedEventHandler  PropertyChanged;
@@ -18,4 +19,6 @@ namespace Screen_Capture.Core
         }
        
     }
-}
+
+   
+    }

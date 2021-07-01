@@ -18,7 +18,7 @@
         <Setter Property="Foreground" Value="White"></Setter>
         <Style.Triggers> 
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background"  Value="#ccd1e5"></Setter>
+                <Setter Property="Background"  Value="#FF380691"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>

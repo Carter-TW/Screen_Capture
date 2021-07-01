@@ -56,7 +56,10 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="12 "   Style="{StaticResource  MiniButtonStyle}"  ></Button>
+               <Button  Grid.Column="0"  Command="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor }, Path=DataContext.Switch_Command}">
+                    <materialDesign:PackIcon Kind="ArrowLeftBold"    />
+                </Button>
+                <Button Grid.Column="12 "   Style="{StaticResource  MiniButtonStyle}"  ></Button>
 
             <Button Grid.Column="13"   Style="{StaticResource  MaxButtonStyle}"  ></Button>
 
@@ -70,23 +73,41 @@
                 <ToolBar
     Style="{DynamicResource MaterialDesignToolBar}"
     ClipToBounds="False">
+                    <ListBox  >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="Ltb_Selected"></ei:CallMethodAction>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ListBoxItem     Tag="0"  Content="{materialDesign:PackIcon Kind=CursorDefaultOutline}">
+                        </ListBoxItem>
+                        <ListBoxItem  Tag="1" Content="{materialDesign:PackIcon Kind=CursorMove}"  ToolTip="Move a Object">
+                        </ListBoxItem>
+                        <ListBoxItem    Tag="2" ToolTip="Add Rectangle"
+                        Content="{materialDesign:PackIcon Kind=ShapeRectanglePlus}">
+                        </ListBoxItem>
+                        <ListBoxItem   Tag="3" ToolTip="Cut Region"
+                        Content="{materialDesign:PackIcon Kind=SelectionDrag}">
+                        </ListBoxItem>
+                    </ListBox>
                     <Button
       ToolTip="Save"
+                      Command="{Binding Save_Command}"
       Content="{materialDesign:PackIcon Kind=ContentSave}" />
                     <Separator />
                     <Button
-      Command="Cut"
+      Command="{Binding Cut_Command}"
       ToolTip="Cut"
       ToolBar.OverflowMode="AsNeeded"
       Content="{materialDesign:PackIcon Kind=ContentCut}" />
                     <Button
-      Command="Copy"
+      Command="{Binding Copy_Command}"
       ToolTip="Copy that stuff"
       ToolBar.OverflowMode="AsNeeded"
       Content="{materialDesign:PackIcon Kind=ContentCopy}" />
                     <Separator />
                     <Button
-      Command="Paste"
+      Command="{Binding  Pasted_Command}"
       ToolTip="Paste some stuff"
       ToolBar.OverflowMode="AsNeeded"
       Content="{materialDesign:PackIcon Kind=ContentPaste}" />
@@ -98,58 +119,8 @@
       CornerRadius="5">
                     </materialDesign:Badged>
                     <Separator />
-                    <ListBox>
-                        <ListBoxItem
-        ToolTip="This is a lonley toggle with TextBlock instead of icon">
-                            <TextBlock
-          Text="W" />
-                        </ListBoxItem>
-                    </ListBox>
-                    <Separator />
-                    <ListBox
-      SelectedIndex="0">
-                        <ListBox.ToolTip>
-                            <StackPanel>
-                                <TextBlock
-            Text="MaterialDesignToolToggleFlatListBox" />
-                                <TextBlock
-            Text="Exclusive selection" />
-                                <TextBlock
-            Text="ListBoxAssist.IsToggle allows more natural toggle behaviour" />
-                            </StackPanel>
-                        </ListBox.ToolTip>
-                        <ListBoxItem
-        Content="{materialDesign:PackIcon Kind=FormatAlignLeft}" />
-                        <ListBoxItem
-        Content="{materialDesign:PackIcon Kind=FormatAlignCenter}" />
-                        <ListBoxItem
-        Content="{materialDesign:PackIcon Kind=FormatAlignRight}" />
-                        <ListBoxItem
-        Content="{materialDesign:PackIcon Kind=FormatAlignJustify}" />
-                    </ListBox>
-                    <Separator />
-                    <ListBox
-      SelectionMode="Extended">
-                        <ListBox.ToolTip>
-                            <StackPanel>
-                                <TextBlock
-            Text="MaterialDesignToolToggleListBox" />
-                                <TextBlock
-            Text="Multiple selection" />
-                                <TextBlock
-            Text="ListBoxAssist.IsToggle allows more natural toggle behaviour" />
-                            </StackPanel>
-                        </ListBox.ToolTip>
-                        <ListBoxItem
-        Content="{materialDesign:PackIcon Kind=FormatBold}" />
-                        <ListBoxItem
-        Content="{materialDesign:PackIcon Kind=FormatItalic}" />
-                        <ListBoxItem
-        Content="{materialDesign:PackIcon Kind=FormatUnderline}" />
-                    </ListBox>
-                    <Separator />
                     <StackPanel ToolBar.OverflowMode="AsNeeded" >
-                    <xctk:ColorPicker   Width="200" Name="cp"  DisplayColorAndName="True"   AvailableColorsSortingMode="HueSaturationBrightness" >
+                    <xctk:ColorPicker   Width="200" Name="cp1"  ToolTip="Background" DisplayColorAndName="True"   AvailableColorsSortingMode="HueSaturationBrightness" >
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectedColorChanged">
                                     <ei:CallMethodAction TargetObject="{Binding}" MethodName="cp_SelectedColorChanged_1">
@@ -157,7 +128,22 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                     </xctk:ColorPicker>
-                        <xctk:ColorPicker Width="200"  DisplayColorAndName="True"   AvailableColorsSortingMode="HueSaturationBrightness" ></xctk:ColorPicker>
+                        <xctk:ColorPicker  x:Name="cp2" Width="200"    ToolTip="BoderBackground"  DisplayColorAndName="True"   AvailableColorsSortingMode="HueSaturationBrightness" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectedColorChanged">
+                                    <ei:CallMethodAction TargetObject="{Binding}" MethodName="cp_SelectedColorChanged_1">
+                                    </ei:CallMethodAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </xctk:ColorPicker>
+                        <xctk:ColorPicker  x:Name="cp3" Width="200"  ToolTip="Foreground"  DisplayColorAndName="True"   AvailableColorsSortingMode="HueSaturationBrightness" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectedColorChanged">
+                                    <ei:CallMethodAction TargetObject="{Binding}" MethodName="cp_SelectedColorChanged_1">
+                                    </ei:CallMethodAction>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </xctk:ColorPicker>
                     </StackPanel>
                         <Separator />
                     <Label
@@ -182,12 +168,17 @@
                 </ToolBar>
             </ToolBarTray>
             <TabControl
+            TabStripPlacement="Top"
+                
                 Grid.Row="2"
   Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
-  
-  TabStripPlacement="Top"
-     ItemsSource="{Binding test}"
+     ItemsSource="{Binding  paints}"
 >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="TabControl_ChangedItem"></ei:CallMethodAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <TabControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel

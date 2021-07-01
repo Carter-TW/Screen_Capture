@@ -4,13 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Screen_Capture.MVVM.View"
+               xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              x:Name="imageview"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Width="{Binding ActualWidth, ElementName=imageview, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=imageview, Mode=OneWay}" >
+    <Border Width="{Binding ActualWidth, ElementName=imageview, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=imageview, Mode=OneWay}"  ClipToBounds="True">
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AllowDrop="True"   >
-            <Canvas ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"  >
-
+            <Canvas   ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"  Background="White"  Width="800" Height="800"  >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="Cvs_Loaded"></ei:CallMethodAction>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="Cvs_MouseLeftButtonDown"></ei:CallMethodAction>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseMove">
+                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="Cvs_MouseMove"></ei:CallMethodAction>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="Cvs_MouseLeftButtonUp"></ei:CallMethodAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
             </Canvas>
        </ScrollViewer>
     </Border>

@@ -42,13 +42,19 @@ namespace Screen_Capture.MVVM.ViewModel
         {
             window.Hide(); //隱藏應用程式
             screen.FullScreenShot();
-            screen.SaveImage();
+            System.Windows.Forms.Clipboard.SetImage(screen.bitmap);
+            MainViewModel tmp = (MainViewModel)window.DataContext;
+            tmp.Image = screen.GetImageSource();
+            
+            window.Show();
+            //  screen.SaveImage();
         }
         private void WindowScreenShot(Window window)
         {
             window.Hide(); //隱藏應用程式
             screen.WindowScreennShot();
-            screen.SaveImage();
+         
+            // screen.SaveImage();
         }
 
 

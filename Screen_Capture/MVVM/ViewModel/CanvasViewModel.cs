@@ -127,7 +127,7 @@ namespace Screen_Capture.MVVM.ViewModel
              
                 //找出最小的X 跟Y 設定給X Y  width 跟height 直接相減取絕對值
                     end = e.GetPosition(tmp);
-                    x = start.X ;
+                    x = start.X ;   
                      y=start.Y;
                     if (end.X < start.X)
                     {

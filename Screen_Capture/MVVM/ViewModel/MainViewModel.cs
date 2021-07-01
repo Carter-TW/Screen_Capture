@@ -8,6 +8,9 @@ using Screen_Capture.Core;
 using System.Windows.Media;
 using System.Windows.Input;
 using Screen_Capture.MVVM.View;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace Screen_Capture.MVVM.ViewModel
 {
@@ -33,6 +36,14 @@ namespace Screen_Capture.MVVM.ViewModel
         #endregion
 
         #region Command Declare
+        public DelegateCommand<Canvas> Save_Command
+        {
+            get { return  new DelegateCommand<Canvas>(Save_File);  }
+        }
+        public DelegateCommand Switch_Command
+        {
+            get { return new DelegateCommand(Switch_View); }
+        }
         public DelegateCommand<Window> MaxWindowCommand
         {
             get { return new DelegateCommand<Window>(MaxWindow); }
@@ -91,14 +102,48 @@ namespace Screen_Capture.MVVM.ViewModel
             }
 
         }
+        private void Switch_View()
+        {
+            if (currentview == startView) currentview = paintView;
+            else currentview = startView;
+        }
 
+        private void Save_File(Canvas element)
+        {
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)element.ActualWidth, (int)element.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+
+            bmp.Render(element);
+
+            //</ get Screenshot of Element >
+
+
+
+            //< create Encoder >
+
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
+
+            encoder.Frames.Add(BitmapFrame.Create(bmp));
+
+            //</ create Encoder >
+
+
+
+            //< save >
+
+            FileStream fs = new FileStream(@"C:\Users\88690\Pictures\test.png", FileMode.Create);
+
+            encoder.Save(fs);
+
+            fs.Close();
+        }
         #endregion
         public MainViewModel()
         {
             startView = new StartViewModel();
             paintView = new PaintViewModel();
-            currentview = paintView;
-           // currentview = startView;
+        
+           // currentview = paintView;
+            currentview = startView;
         }
     }
 }

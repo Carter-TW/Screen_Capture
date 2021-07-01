@@ -92,7 +92,6 @@
     <Compile Include="Core\BaseViewModel.cs" />
     <Compile Include="Core\DelegateCommand.cs" />
     <Compile Include="Core\EventToCommandBehavior.cs" />
-    <Compile Include="Core\MouseBehavior.cs" />
     <Compile Include="Core\ScreenCapture.cs" />
     <Compile Include="MVVM\ViewModel\CanvasViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ImageViewModel.cs" />
