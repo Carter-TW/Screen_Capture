@@ -69,13 +69,13 @@
             -->
             <Border   Grid.Row="1" Background="#FF673AB7"  >
                 <StackPanel >
-                    <RadioButton  Content="Start"  Style="{StaticResource MenuButtonStyle}"></RadioButton>
-                    <RadioButton  Content="New" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Start"   Command="{Binding RelativeSource={RelativeSource  AncestorType=UserControl, AncestorLevel=1  ,Mode=FindAncestor},Path=DataContext.Start_Command }"  Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="New"    Command="{Binding RelativeSource={RelativeSource  AncestorType=UserControl, AncestorLevel=1  ,Mode=FindAncestor},Path=DataContext.New_Command }"  Style="{StaticResource MenuButtonStyle}"></RadioButton>
                     <RadioButton  Content="Open" Style="{StaticResource MenuButtonStyle}"></RadioButton>
                     <RadioButton  Content="Save" Style="{StaticResource MenuButtonStyle}"></RadioButton>
                     <RadioButton  Content="Save As" Style="{StaticResource MenuButtonStyle}"></RadioButton>
                     <RadioButton  Content="Print" Style="{StaticResource MenuButtonStyle}"></RadioButton>
-                    <RadioButton  Content="Option" Style="{StaticResource MenuButtonStyle}"></RadioButton>
+                    <RadioButton  Content="Option"   Command="{Binding RelativeSource={RelativeSource  AncestorType=UserControl, AncestorLevel=1  ,Mode=FindAncestor},Path=DataContext.Option_Command }" Style="{StaticResource MenuButtonStyle}"></RadioButton>
                     <RadioButton  Content="About" Style="{StaticResource MenuButtonStyle}"></RadioButton>
                 </StackPanel>
             </Border>

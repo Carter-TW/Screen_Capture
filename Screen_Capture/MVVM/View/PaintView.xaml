@@ -186,7 +186,7 @@
         Height="auto"
         Width="auto">
                             <TextBlock
-          Text="All Files  gdsgsd"
+          Text="{Binding  File_Name}"
           HorizontalAlignment="Center" />
                             <Button Command="{Binding CloseCommand}" Background="#FFEAEAEA" BorderBrush="{x:Null}" >
                                 <Button.Content>

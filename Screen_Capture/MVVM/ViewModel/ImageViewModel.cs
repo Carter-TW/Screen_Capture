@@ -21,6 +21,28 @@ namespace Screen_Capture.MVVM.ViewModel
     public class ImageViewModel : BaseViewModel
     {
         #region 屬性
+        private string _File_Name;
+
+        public string File_Name
+        {
+            get { return _File_Name; ; }
+            set { _File_Name= value;  OnPropertyChange(); }
+        }
+
+        private double _Canvas_Width;
+
+        public double  Canvas_Width
+        {
+            get { return _Canvas_Width; }
+            set { _Canvas_Width = value; OnPropertyChange(); }
+        }
+        private double _Canvas_Height;
+
+        public double Canvas_Height
+        {
+            get { return _Canvas_Height; }
+            set { _Canvas_Height = value; OnPropertyChange(); }
+        }
         public event EventHandler CloseRequest;
         public static int Mode { get; set; } //paint function
         public static Brush background { get; set; }
@@ -303,11 +325,15 @@ namespace Screen_Capture.MVVM.ViewModel
         public void Cvs_Loaded(object sender, RoutedEventArgs e)
         {
             MyCanvas = sender as Canvas;
+         //   MyCanvas.Width = Canvas_Width;
+           // MyCanvas.Height = Canvas_Height;
+            Console.WriteLine("test");
+           
         }
 
  
         #endregion
-        public ImageViewModel()
+        public ImageViewModel(double w,double h ,string name)
         {
             CloseCommand = new DelegateCommand<EventHandler>(p => CloseRequest?.Invoke(this, EventArgs.Empty));
             forgeground = Brushes.White;
@@ -316,8 +342,9 @@ namespace Screen_Capture.MVVM.ViewModel
             Mode = 0;
             control = null;
             IsPainted = false;
-              
-          
+            Canvas_Height = h;
+            Canvas_Width = w;
+            File_Name = name;
 
         //    Canvas.SetLeft(rect, 0);
           //  Canvas.SetLeft(rect, 0);

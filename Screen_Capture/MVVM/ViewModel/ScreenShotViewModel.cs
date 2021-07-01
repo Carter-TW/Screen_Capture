@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Screen_Capture.Core;
+
 namespace Screen_Capture.MVVM.ViewModel
 {
     
@@ -13,7 +14,7 @@ namespace Screen_Capture.MVVM.ViewModel
     public class ScreenShotViewModel :BaseViewModel
     {
         #region 屬性
-        private ScreenCapture screen;
+ 
    
         private CanvasViewModel CanvasView { get; set;  }
        
@@ -38,21 +39,21 @@ namespace Screen_Capture.MVVM.ViewModel
         #endregion
 
         #region command function 
-        private void FullScreemShot(Window window)
+        private   void FullScreemShot(Window window)
         {
-            window.Hide(); //隱藏應用程式
-            screen.FullScreenShot();
-            System.Windows.Forms.Clipboard.SetImage(screen.bitmap);
-            MainViewModel tmp = (MainViewModel)window.DataContext;
-            tmp.Image = screen.GetImageSource();
             
+            window.Hide(); //隱藏應用程式
+            MainViewModel.Global_Screen.FullScreenShot();
+            System.Windows.Forms.Clipboard.SetImage(MainViewModel.Global_Screen.bitmap);
+            MainViewModel tmp = (MainViewModel)window.DataContext;
+            tmp.Image = MainViewModel.Global_Screen.GetImageSource();
             window.Show();
             //  screen.SaveImage();
         }
-        private void WindowScreenShot(Window window)
+      public  void WindowScreenShot(Window window)
         {
             window.Hide(); //隱藏應用程式
-            screen.WindowScreennShot();
+            MainViewModel.Global_Screen.WindowScreennShot();
          
             // screen.SaveImage();
         }
@@ -61,13 +62,12 @@ namespace Screen_Capture.MVVM.ViewModel
         private void RegionScreenShot(Window window)
         {
             window.Hide(); //隱藏應用程式
-            screen.FullScreenShot(); //先全螢幕截圖
+            MainViewModel.Global_Screen.FullScreenShot(); //先全螢幕截圖
             MainViewModel tmp = (MainViewModel)window.DataContext;
-            tmp.Image=screen.GetImageSource(); 
-            CanvasView.screen = screen; //ScreenShotViewModel的screen傳給CanvasViewModel
-          
+            tmp.Image= MainViewModel.Global_Screen.GetImageSource(); 
             window.WindowState = WindowState.Maximized; //將放置螢幕截圖的canvas最大化
             tmp.currentview = CanvasView;
+            // CanvasView;
             window.DataContext = tmp;
             window.Show();
 
@@ -87,7 +87,7 @@ namespace Screen_Capture.MVVM.ViewModel
         #endregion
         public ScreenShotViewModel()
         {
-            screen = new ScreenCapture();
+        
             CanvasView = new CanvasViewModel();
         }
     }

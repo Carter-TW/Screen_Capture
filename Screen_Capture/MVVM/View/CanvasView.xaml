@@ -10,13 +10,17 @@
              x:Name="canvas_view"
              d:DesignHeight="450" d:DesignWidth="800">
    
-    <Canvas x:Name="canvas"      >
+    <Canvas x:Name="canvas"       >
         <UserControl   Content="{Binding  finishview}" Canvas.Left="{ Binding UC_x}" Canvas.Top="{Binding UC_y}" Visibility="{Binding state}"></UserControl>
         <Canvas.Background>
             <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Image}"></ImageBrush>
         </Canvas.Background>
         <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <ei:CallMethodAction TargetObject="{Binding}" MethodName="Canvas_Loaded"></ei:CallMethodAction>
+            </i:EventTrigger>
             <i:EventTrigger  EventName="MouseLeftButtonDown" >
+                <!-- canvas_view 等於這個UserControl -->
                 <ei:CallMethodAction  TargetObject="{Binding  ElementName=canvas_view, Path=DataContext}"  MethodName="MouseLeftButtonDown"/>
             </i:EventTrigger>
             <i:EventTrigger  EventName="MouseMove" >

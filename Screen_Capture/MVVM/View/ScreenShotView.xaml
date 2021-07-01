@@ -8,7 +8,7 @@
              x:Name="screenshotview"
              d:DesignHeight="450" d:DesignWidth="800">
     
-    <Border >
+    <Border >   
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="283"></ColumnDefinition>
@@ -26,10 +26,13 @@
                         <Separator  Margin="0,5,35.381,5" Background="#FFAEAAAA"/>
                         <Label Content="Screen Capture"  Foreground="#1661ac" FontSize="20" Margin="10,0,0,0"></Label>
                         <RadioButton Content="Full-Screen"
+                                        x:Name="FullScreen"
                                             Style="{StaticResource FunctionButtonStyle}"
                                         Command="{Binding FullScreenShot_Command}"
                                       CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
-                                     ></RadioButton>
+                                     >
+                        
+                        </RadioButton>
                         <RadioButton Content="ActiveWindow"
                                      Command="{Binding WindowScreenShot_Command}"
                                       CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"

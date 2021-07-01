@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="Screen_Capture.MVVM.View.NewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Screen_Capture.MVVM.View"
+              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+               <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+          
+        <Border
+            Grid.Row="0"
+            Background="White"
+            BorderBrush="Black"
+            Width="50"
+            Height="100"
+            BorderThickness="1"
+            HorizontalAlignment="Center"
+           />
+        
+            <StackPanel Grid.Row="1" Margin="10,0,0,0">
+                <Label Content="Canvas Size" Height="40" FontSize="28" HorizontalAlignment="Center"></Label>
+                <Label Content="New Width" Height="40" FontSize="20" BorderBrush="Black" HorizontalAlignment="Center"></Label>
+                <TextBox Width="150" Height="30" HorizontalAlignment="Center"   Text="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor},Path=DataContext.canvas_width}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewTextInput">
+                            <ei:CallMethodAction TargetObject="{Binding RelativeSource= {RelativeSource AncestorType=Window, Mode=FindAncestor},Path=DataContext}" MethodName="NumberValidationTextBox_Width"></ei:CallMethodAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Label Content="New Height" Height="40" FontSize="20"  BorderBrush="Black"  HorizontalAlignment="Center"></Label>
+                <TextBox Width="150"  Height="30" HorizontalAlignment="Center" Text="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor},Path=DataContext.canvas_height}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewTextInput">
+                            <ei:CallMethodAction TargetObject="{Binding RelativeSource= {RelativeSource AncestorType=Window, Mode=FindAncestor},Path=DataContext}" MethodName="NumberValidationTextBox_Height"></ei:CallMethodAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </StackPanel>
+            <Button Grid.Row="2" Content="Create" Command="{Binding RelativeSource= {RelativeSource AncestorType=Window, Mode=FindAncestor},Path=DataContext.New_Command}"  Width="80" Margin="0,10,0,0"></Button>
+        </Grid>
+    </Border>
+</UserControl>

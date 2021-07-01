@@ -41,6 +41,7 @@ namespace Screen_Capture.MVVM.ViewModel
         #region function
         private bool Can_Save()
         {
+            if (paints.Count == 0) return false;
             if (paints[SelectedIndex].IsPainted == true) return true;
             else return false;
         }
@@ -102,7 +103,7 @@ namespace Screen_Capture.MVVM.ViewModel
                     rect.Fill = brush;
                 Canvas.SetLeft(rect, 0);
                 Canvas.SetTop(rect, 0);
-                Console.WriteLine("test");
+              
                 paints[SelectedIndex].MyCanvas.Children.Add(rect);
 
 
@@ -188,9 +189,9 @@ namespace Screen_Capture.MVVM.ViewModel
             }
         }
       
-        private void NewTabItem(ImageViewModel imageView)  // 增加新TAB
+        public void NewTabItem(double w ,double h,string name)  // 增加新TAB
         {
-            paints.Add(imageView);
+            paints.Add(new ImageViewModel(w,h,name));
         }
         private void CloseTabItem(object sender ,EventArgs e)// 刪除新TAB
         {
@@ -203,7 +204,7 @@ namespace Screen_Capture.MVVM.ViewModel
             if(e.Action==NotifyCollectionChangedAction.Add)
             {
                 tmp= e.NewItems[0] as ImageViewModel;
-                tmp.CloseRequest += CloseTabItem;
+                tmp.CloseRequest +=CloseTabItem;
             }
             else
             {
@@ -230,8 +231,8 @@ namespace Screen_Capture.MVVM.ViewModel
         {
             paints = new ObservableCollection<ImageViewModel>();
             paints.CollectionChanged += CollectionChanged;
-           paints.Add(new ImageViewModel());
-         paints.Add(new ImageViewModel());
+          //  SelectedIndex = -1;
+        
 
 
         }

@@ -7,10 +7,43 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Screen_Capture.Core;
+using Screen_Capture.MVVM.View;
+
 namespace Screen_Capture.MVVM.ViewModel
 {
    public  class StartViewModel:BaseViewModel
     {
+        #region Command Declare 
+        public DelegateCommand  Option_Command
+        {
+            get { return new DelegateCommand(Switch_Option); }
+        }
+
+        public DelegateCommand New_Command
+        {
+            get { return new DelegateCommand(Switch_New); }
+        }
+        public DelegateCommand Start_Command
+        {
+            get { return new DelegateCommand(Switch_Start); }
+        }
+        #endregion
+
+        #region command function
+        private void Switch_Start()
+        {
+            funcView = screenShotView;
+        }
+        private void Switch_Option()
+        {
+            funcView = settingViewModel;
+            
+        }
+        private void Switch_New()
+        {
+            funcView = newView;
+        }
+        #endregion
         #region 屬性
         private object  _funcView;
 
@@ -19,12 +52,16 @@ namespace Screen_Capture.MVVM.ViewModel
             get { return  _funcView; }
             set {  _funcView = value; OnPropertyChange(); }
         }
-        private ScreenShotViewModel screenShotView { get; set; }
+        public ScreenShotViewModel screenShotView { get; set; }
+        private SettingViewModel settingViewModel;
+        private NewViewModel newView;
         #endregion
      
         public StartViewModel()
         {
             screenShotView = new ScreenShotViewModel();
+            settingViewModel = new SettingViewModel();
+            newView = new NewViewModel();
             funcView = screenShotView;
         }
     }

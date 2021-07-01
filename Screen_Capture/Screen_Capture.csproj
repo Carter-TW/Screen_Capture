@@ -40,6 +40,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.1.2556, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.1\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -102,7 +105,13 @@
     <Page Include="MVVM\View\ImageView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\NewView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\PaintView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\SettingView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TabItemStyle.xaml">
@@ -157,8 +166,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\ViewModel\NewViewModel.cs" />
     <Compile Include="MVVM\ViewModel\PaintViewModel.cs" />
     <Compile Include="MVVM\ViewModel\ScreenShotViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\SettingViewModel.cs" />
     <Compile Include="MVVM\ViewModel\StartViewModel.cs" />
     <Compile Include="MVVM\ViewModel\StoreControlViewModel.cs" />
     <Compile Include="MVVM\View\CanvasView.xaml.cs">
@@ -167,11 +178,17 @@
     <Compile Include="MVVM\View\ImageView.xaml.cs">
       <DependentUpon>ImageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\NewView.xaml.cs">
+      <DependentUpon>NewView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\PaintView.xaml.cs">
       <DependentUpon>PaintView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\ScreenShotView.xaml.cs">
       <DependentUpon>ScreenShotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\SettingView.xaml.cs">
+      <DependentUpon>SettingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>

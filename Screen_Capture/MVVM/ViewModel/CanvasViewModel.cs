@@ -18,7 +18,7 @@ namespace Screen_Capture.MVVM.ViewModel
     {
         enum Flag{ region=0,control}
         #region  屬性宣告
-    
+        private Canvas canvas;
         private Rectangle rect;  //canvas 上的矩形
         private Point start;
         private Point end;
@@ -26,8 +26,6 @@ namespace Screen_Capture.MVVM.ViewModel
         private double y;//設定矩形的左上
         private StoreControlViewModel controlView { get; set; }
        // public double window_width { get; set; } //視窗的寬度
-        
-        public ScreenCapture screen { get; set; }  //螢幕截圖的class
         private ImageSource _image;  
         public ImageSource Image  //螢幕截圖的圖轉換imagesource
         {
@@ -94,6 +92,7 @@ namespace Screen_Capture.MVVM.ViewModel
             Canvas tmp = sender as Canvas;
             if(tmp!=null)
             {
+            
                 state = Visibility.Hidden;
 
                 tmp.Children.Remove(rect);
@@ -165,23 +164,29 @@ namespace Screen_Capture.MVVM.ViewModel
             var scree_width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             var rate = scree_width / tmp.ActualWidth;  // 螢幕寬度/canvas 的寬度=point 座標轉換
 
-                 screen.RegionScreenShot((int)(x*rate),(int)(y*rate),(int) (rect.Width*rate), (int)(rect.Height*rate ));
-         
+                 
+            controlView.Init_Region((int)(x * rate), (int)(y * rate), (int)(rect.Width * rate), (int)(rect.Height * rate),canvas,rect,  state);
             //    screen.SaveImage();
             UC_x = x;
             if (y - 45 < 0) UC_y = y + rect.Height+5;
             else UC_y = y - 45;
             state = Visibility.Visible;
-            controlView.bitmap = screen.bitmap;
+       
             finishview = controlView;
+          
 
-
+        }
+      
+        public void Canvas_Loaded(object sender,RoutedEventArgs e)
+        {
+            Canvas c = sender as Canvas;
+            canvas = c;
         }
         #endregion
         #region  construction
         public CanvasViewModel()
         {
-            screen = new ScreenCapture();
+          
        
             controlView = new StoreControlViewModel();
             
