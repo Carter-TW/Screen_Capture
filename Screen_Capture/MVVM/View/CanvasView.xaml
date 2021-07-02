@@ -13,7 +13,7 @@
     <Canvas x:Name="canvas"       >
         <UserControl   Content="{Binding  finishview}" Canvas.Left="{ Binding UC_x}" Canvas.Top="{Binding UC_y}" Visibility="{Binding state}"></UserControl>
         <Canvas.Background>
-            <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.Image}"></ImageBrush>
+            <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.image}"></ImageBrush>
         </Canvas.Background>
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">

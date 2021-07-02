@@ -46,14 +46,16 @@ namespace Screen_Capture.MVVM.ViewModel
             MainViewModel.Global_Screen.FullScreenShot();
             System.Windows.Forms.Clipboard.SetImage(MainViewModel.Global_Screen.bitmap);
             MainViewModel tmp = (MainViewModel)window.DataContext;
-            tmp.Image = MainViewModel.Global_Screen.GetImageSource();
+            tmp.image = MainViewModel.Global_Screen.GetImageSource();
             window.Show();
             //  screen.SaveImage();
         }
       public  void WindowScreenShot(Window window)
         {
-            window.Hide(); //隱藏應用程式
+           window.Hide(); //隱藏應用程式
             MainViewModel.Global_Screen.WindowScreennShot();
+            System.Windows.Forms.Clipboard.SetImage(MainViewModel.Global_Screen.bitmap);
+           
          
             // screen.SaveImage();
         }
@@ -64,7 +66,7 @@ namespace Screen_Capture.MVVM.ViewModel
             window.Hide(); //隱藏應用程式
             MainViewModel.Global_Screen.FullScreenShot(); //先全螢幕截圖
             MainViewModel tmp = (MainViewModel)window.DataContext;
-            tmp.Image= MainViewModel.Global_Screen.GetImageSource(); 
+            tmp.image= MainViewModel.Global_Screen.GetImageSource(); 
             window.WindowState = WindowState.Maximized; //將放置螢幕截圖的canvas最大化
             tmp.currentview = CanvasView;
             // CanvasView;

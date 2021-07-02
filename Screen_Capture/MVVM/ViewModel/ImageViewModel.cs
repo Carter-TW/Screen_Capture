@@ -43,6 +43,13 @@ namespace Screen_Capture.MVVM.ViewModel
             get { return _Canvas_Height; }
             set { _Canvas_Height = value; OnPropertyChange(); }
         }
+        private Brush _Canvas_Brush;
+        public Brush Canvas_Brush
+        {
+                get { return _Canvas_Brush; }
+            set { _Canvas_Brush = value; OnPropertyChange(); }
+        }
+
         public event EventHandler CloseRequest;
         public static int Mode { get; set; } //paint function
         public static Brush background { get; set; }
@@ -333,7 +340,7 @@ namespace Screen_Capture.MVVM.ViewModel
 
  
         #endregion
-        public ImageViewModel(double w,double h ,string name)
+        public ImageViewModel(double w,double h ,string name,Brush b)
         {
             CloseCommand = new DelegateCommand<EventHandler>(p => CloseRequest?.Invoke(this, EventArgs.Empty));
             forgeground = Brushes.White;
@@ -345,7 +352,11 @@ namespace Screen_Capture.MVVM.ViewModel
             Canvas_Height = h;
             Canvas_Width = w;
             File_Name = name;
-
+        
+            if (b == null) Canvas_Brush = Brushes.White;
+            else Canvas_Brush = b;
+            
+            
         //    Canvas.SetLeft(rect, 0);
           //  Canvas.SetLeft(rect, 0);
             //canvas.Children.Add(rect);

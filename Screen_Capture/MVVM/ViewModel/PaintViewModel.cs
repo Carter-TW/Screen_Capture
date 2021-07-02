@@ -189,9 +189,9 @@ namespace Screen_Capture.MVVM.ViewModel
             }
         }
       
-        public void NewTabItem(double w ,double h,string name)  // 增加新TAB
+        public void NewTabItem(double w ,double h,string name,Brush b)  // 增加新TAB
         {
-            paints.Add(new ImageViewModel(w,h,name));
+            paints.Add(new ImageViewModel(w,h,name,b));
         }
         private void CloseTabItem(object sender ,EventArgs e)// 刪除新TAB
         {

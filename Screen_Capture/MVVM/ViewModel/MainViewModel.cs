@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using Gma.System.MouseKeyHook;
 using System.Text.RegularExpressions;
+using Microsoft.Win32;
+
 namespace Screen_Capture.MVVM.ViewModel
 {
 
@@ -46,19 +48,24 @@ namespace Screen_Capture.MVVM.ViewModel
         private StartViewModel startView { get; set; }
        private PaintViewModel paintView { get; set;  }
         private bool[,] Check;
+    
         private ImageSource _image;
-        public ImageSource Image
+
+        public ImageSource image
         {
             get { return _image; }
             set { _image = value; OnPropertyChange(); }
         }
+        
         #endregion
 
         #region Command Declare
+       
         public DelegateCommand<Canvas> Save_Command
         {
             get { return  new DelegateCommand<Canvas>(Save_File);  }
         }
+        
         public DelegateCommand Switch_Command
         {
             get { return new DelegateCommand(Switch_View); }
@@ -93,11 +100,93 @@ namespace Screen_Capture.MVVM.ViewModel
         {
             get { return new DelegateCommand(New_Canvas, Can_New); }
         }
-     
+        public DelegateCommand Open_Command
+        {
+            get { return new DelegateCommand(Open_Object); }
+        }
+
+     public DelegateCommand SaveObject_Command
+        {
+            get { return new DelegateCommand(Save_Object, Can_Save); }
+        }
         #endregion
 
         #region command function
+        private bool Can_Save()
+        {
+            if (paintView.paints.Count == 0) return false;
+            else return true;
+        }
+        private void Save_Object()
+        {
+            for (int i = 0;  i < paintView.paints.Count  ; i++)
+             {
+                if (!paintView.paints[i].IsPainted) continue;
+                Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+
+                dlg.FileName = paintView.paints[i].File_Name; // Default file name
+                dlg.DefaultExt = ".png"; // Default file extension
+                dlg.Filter = "PNG (.png)|*.png"; // Filter files by extension
+                                                 // Show save file dialog box
+                Nullable<bool> result = dlg.ShowDialog();
+                RenderTargetBitmap bmp = GetRenderTargetBitmap(paintView.paints[i].MyCanvas);
+                if (result == true)
+                {
+                    // Save document
+                    PngBitmapEncoder encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bmp));
+                    //</ create Encoder >
+                    //< save >
+                    FileStream fs = new FileStream(dlg.FileName, FileMode.Create);
+                    encoder.Save(fs);
+                    fs.Close();
+                }
+            }
+    
+
+      
+         
+      
+
+      
        
+        }
+
+        private RenderTargetBitmap GetRenderTargetBitmap(FrameworkElement element)
+        {
+            //得到元素的ImageSource
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)element.Width, (int)element.Height, 96, 96, PixelFormats.Pbgra32);
+
+            bmp.Render(element);
+
+            return bmp;
+        }
+        private void Open_Object()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg)|*.jpg|All Files (*.*)|*.*";
+            if (openFileDialog.ShowDialog() == true)
+            {
+            
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri(openFileDialog.FileName);
+                bitmap.EndInit();
+                Image tmp = new Image();
+                tmp.Source = bitmap;
+                ImageBrush brush = new ImageBrush();
+                brush.ImageSource = tmp.Source;
+                string file = openFileDialog.FileName;
+                string[] list = file.Split('\\');
+                canvas_width = brush.ImageSource.Width.ToString();
+                canvas_height = brush.ImageSource.Height.ToString();
+                paintView.paints.Add(new ImageViewModel(double.Parse(canvas_width), double.Parse(canvas_height), list[list.Length-1], brush ));
+                currentview = paintView;
+
+
+
+            }
+        }
         private bool Can_New()
         {
             if (double.Parse(canvas_width) > 100 && double.Parse(canvas_height)>100) return true;
@@ -109,7 +198,7 @@ namespace Screen_Capture.MVVM.ViewModel
             string name = "Image"; // Default file name
            name+= now.ToString("yyyy-MM-dd-H-m");
             Console.WriteLine(canvas_height);
-            paintView.NewTabItem(double.Parse(canvas_width),double.Parse( canvas_height), name);
+            paintView.paints.Add(new ImageViewModel(double.Parse(canvas_width),double.Parse( canvas_height), name,null));
             currentview = paintView;
         }
         public  void NumberValidationTextBox_Width(object sender, TextCompositionEventArgs e)

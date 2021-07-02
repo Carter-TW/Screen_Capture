@@ -20,8 +20,10 @@
                     <StackPanel >
                         <Label Content="New task" Foreground="#1661ac" FontSize="20" Margin="10,0,0,0"></Label>
                         <RadioButton Content="New"
+                                      Command="{Binding RelativeSource={RelativeSource  AncestorType=UserControl, AncestorLevel=2  ,Mode=FindAncestor},Path=DataContext.New_Command }"  
                                            Style="{StaticResource FunctionButtonStyle}"></RadioButton>
                         <RadioButton Content="Open"
+                                      Command="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor},Path=DataContext.Open_Command}" 
                                             Style="{StaticResource FunctionButtonStyle}"></RadioButton>
                         <Separator  Margin="0,5,35.381,5" Background="#FFAEAAAA"/>
                         <Label Content="Screen Capture"  Foreground="#1661ac" FontSize="20" Margin="10,0,0,0"></Label>
