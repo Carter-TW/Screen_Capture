@@ -12,6 +12,8 @@ namespace Screen_Capture.Core
 {
     public class ScreenCapture
     {
+
+
         private const int DWMWA_EXTENDED_FRAME_BOUNDS = 9;
         #region  Construction
         public ScreenCapture()

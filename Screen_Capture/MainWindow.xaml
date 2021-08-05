@@ -8,11 +8,11 @@
         xmlns:vw="clr-namespace:Screen_Capture.MVVM.View" 
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
-        WindowStyle="None"
+        WindowStyle="None" 
         Name="window"
         ResizeMode="NoResize"
         Background="Transparent"
-        Title="MainWindow" Height="400" Width="800" >
+        Title="MainWindow" Height="400" Width="800"  >
  
     <Window.DataContext>
         <vm:MainViewModel></vm:MainViewModel>

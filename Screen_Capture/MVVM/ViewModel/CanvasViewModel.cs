@@ -18,12 +18,13 @@ namespace Screen_Capture.MVVM.ViewModel
     {
         enum Flag{ region=0,control}
         #region  屬性宣告
-        private Canvas canvas;
+      
         private Rectangle rect;  //canvas 上的矩形
         private Point start;
         private Point end;
         private double x;  //設定矩形的左上
         private double y;//設定矩形的左上
+        private double rate; // 螢幕寬度/canvas 的寬度=point 座標轉換
         private StoreControlViewModel controlView { get; set; }
        // public double window_width { get; set; } //視窗的寬度
         private ImageSource _image;  
@@ -67,23 +68,76 @@ namespace Screen_Capture.MVVM.ViewModel
 
         #endregion
         #region command declare
-        /*
-        public DelegateCommand<MouseEventArgs>  Cvs_MouseLeftButtonDown
+        public DelegateCommand<Canvas> Bt_ExitRegionShot
         {
-            get { return new DelegateCommand<MouseEventArgs>(MouseLeftButtonDown); }
+            get { return new DelegateCommand<Canvas>(ExitRegionShot); }
+        }
+        public DelegateCommand<Canvas> Bt_SaveOnClipBoard
+        {
+            get { return new DelegateCommand<Canvas>(SaveOnClipBoard); }
         }
 
-        public DelegateCommand<MouseEventArgs> Cvs_MouseLeftButtonUp
+        public DelegateCommand<Canvas> Bt_SaveFileDialog
         {
-            get { return new DelegateCommand<MouseEventArgs>(MouseLeftButtonUp); }
+            get { return new DelegateCommand<Canvas>(SaveFileDialog); }
         }
-        public DelegateCommand<MouseEventArgs> Cvs_MouseMove
-        {
-            get { return new DelegateCommand<MouseEventArgs>(MouseMove); }
-        }
-        */
+   
         #endregion
         #region  command function
+
+        private void SaveFileDialog(Canvas can)
+        {
+            Application.Current.MainWindow.Hide();
+            can.Children.Remove(rect);
+            state = Visibility.Hidden;
+            DateTime now = DateTime.Now;
+            MainViewModel.Global_Screen.RegionScreenShot((int)(x * rate), (int)(y * rate), (int)(rect.Width * rate), (int)(rect.Height * rate));
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "Image"; // Default file name
+            dlg.FileName += now.ToString("yyyy-MM-dd-H-m");
+            dlg.DefaultExt = ".png"; // Default file extension
+            dlg.Filter = "PNG (.png)|*.png"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                MainViewModel.Global_Screen.bitmap.Save(dlg.FileName);
+                MainViewModel tmp = (MainViewModel)Application.Current.MainWindow.DataContext;
+                tmp.Switch_Command.CanExecute(null);
+                tmp.Switch_Command.Execute(SwitchType.Start2Canvas);
+            }
+        }
+
+
+        private void SaveOnClipBoard(Canvas can)
+        {
+            Application.Current.MainWindow.Hide();
+            can.Children.Remove(rect);
+            state = Visibility.Hidden;
+            MainViewModel.Global_Screen.RegionScreenShot((int)(x * rate), (int)(y * rate), (int)(rect.Width * rate), (int)(rect.Height * rate));
+            MainViewModel tmp = (MainViewModel)Application.Current.MainWindow.DataContext;
+            tmp.Switch_Command.CanExecute(null);
+            tmp.Switch_Command.Execute(SwitchType.Start2Canvas);
+            //window.WindowState = WindowState.Minimized;
+            System.Windows.Forms.Clipboard.SetImage(MainViewModel.Global_Screen.bitmap);
+        }
+
+        private void ExitRegionShot(Canvas can)
+        {
+            state = Visibility.Hidden;
+            Application.Current.MainWindow.Hide();
+            MainViewModel tmp = (MainViewModel)Application.Current.MainWindow.DataContext;
+            tmp.Switch_Command.CanExecute(null);
+            tmp.Switch_Command.Execute(SwitchType.Start2Canvas);
+            can.Children.Remove(rect);
+    
+    
+        }
+
 
         public  void MouseLeftButtonDown(object sender, MouseEventArgs e)
         {
@@ -162,10 +216,10 @@ namespace Screen_Capture.MVVM.ViewModel
  
             if (rect.Width < 10 || rect.Height<10) return;
             var scree_width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
-            var rate = scree_width / tmp.ActualWidth;  // 螢幕寬度/canvas 的寬度=point 座標轉換
+            rate = scree_width / tmp.ActualWidth;  // 螢幕寬度/canvas 的寬度=point 座標轉換
 
                  
-            controlView.Init_Region((int)(x * rate), (int)(y * rate), (int)(rect.Width * rate), (int)(rect.Height * rate),canvas,rect,  state);
+            
             //    screen.SaveImage();
             UC_x = x;
             if (y - 45 < 0) UC_y = y + rect.Height+5;
@@ -177,11 +231,7 @@ namespace Screen_Capture.MVVM.ViewModel
 
         }
       
-        public void Canvas_Loaded(object sender,RoutedEventArgs e)
-        {
-            Canvas c = sender as Canvas;
-            canvas = c;
-        }
+     
         #endregion
         #region  construction
         public CanvasViewModel()

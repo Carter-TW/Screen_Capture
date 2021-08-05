@@ -11,7 +11,8 @@ using Screen_Capture.MVVM.View;
 
 namespace Screen_Capture.MVVM.ViewModel
 {
-   public  class StartViewModel:BaseViewModel
+  
+    public  class StartViewModel:BaseViewModel
     {
         #region Command Declare 
         public DelegateCommand  Option_Command
@@ -30,13 +31,18 @@ namespace Screen_Capture.MVVM.ViewModel
         #endregion
 
         #region command function
+       
         private void Switch_Start()
         {
             funcView = screenShotView;
         }
         private void Switch_Option()
         {
-            funcView = settingViewModel;
+            SettingWindow setting= new SettingWindow();
+            setting.DataContext = settingmodel;
+            setting.ShowDialog();
+            
+         //   funcView = settingViewModel;
             
         }
         private void Switch_New()
@@ -53,14 +59,14 @@ namespace Screen_Capture.MVVM.ViewModel
             set {  _funcView = value; OnPropertyChange(); }
         }
         public ScreenShotViewModel screenShotView { get; set; }
-        private SettingViewModel settingViewModel;
+        private SettingViewModel settingmodel;
         private NewViewModel newView;
         #endregion
      
         public StartViewModel()
         {
             screenShotView = new ScreenShotViewModel();
-            settingViewModel = new SettingViewModel();
+            settingmodel = new SettingViewModel();
             newView = new NewViewModel();
             funcView = screenShotView;
         }

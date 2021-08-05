@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="Screen_Capture.MVVM.View.SettingView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Screen_Capture.MVVM.View"
+               xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Border  >
+        <StackPanel>
+        <ItemsControl ItemsSource="{Binding hotKeys}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"></StackPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel  Orientation="Vertical">
+                        <Label Height="60" FontSize="40" Content="{Binding   Name}"></Label>
+                        <StackPanel Orientation="Horizontal">
+                                <CheckBox Content="Ctrl" Height="40" Width="80"  FontSize="20" IsChecked="{Binding Ctrl}" />
+                                <CheckBox Content="Shift" Height="40" Width="80"  FontSize="20"   IsChecked="{Binding Shift}"/>
+                                <CheckBox Content="Alt" Height="40" Width="80"  FontSize="20" IsChecked="{Binding Alt}" />
+                                <TextBox Width="120"  Height="40"   Text="{Binding  str}" Style="{DynamicResource MaterialDesignTextBox}"  FontSize="20" VerticalContentAlignment="Bottom">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="KeyUp">
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBox_KeyUp"></ei:CallMethodAction>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="PreviewTextInput">
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBox_PreviewTextInput"></ei:CallMethodAction>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </StackPanel>
+                  
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+            <StackPanel Width="200" HorizontalAlignment="Center" Orientation="Horizontal" >
+                <Button Content="Check" HorizontalAlignment="Center" Margin="0,10,0,0" Command="{Binding StoreSetting_Command}"  CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor} }"></Button>
+                <Button Content="Cancel" HorizontalAlignment="Center" Margin="5,10,0,0" Command="{Binding CancelSetting_Command}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor} }"></Button>
+            </StackPanel>
+            
+        </StackPanel>
+    </Border>
+        
+</UserControl>

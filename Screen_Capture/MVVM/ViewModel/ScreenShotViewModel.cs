@@ -16,7 +16,7 @@ namespace Screen_Capture.MVVM.ViewModel
         #region 屬性
  
    
-        private CanvasViewModel CanvasView { get; set;  }
+       
        
 
         #endregion
@@ -63,15 +63,21 @@ namespace Screen_Capture.MVVM.ViewModel
 
         private void RegionScreenShot(Window window)
         {
+            
             window.Hide(); //隱藏應用程式
             MainViewModel.Global_Screen.FullScreenShot(); //先全螢幕截圖
             MainViewModel tmp = (MainViewModel)window.DataContext;
-            tmp.image= MainViewModel.Global_Screen.GetImageSource(); 
+            tmp.image= MainViewModel.Global_Screen.GetImageSource();
+            
+            
             window.WindowState = WindowState.Maximized; //將放置螢幕截圖的canvas最大化
-            tmp.currentview = CanvasView;
+            tmp.Switch_Command.CanExecute(null);
+            tmp.Switch_Command.Execute(SwitchType.Start2Canvas);
             // CanvasView;
             window.DataContext = tmp;
-            window.Show();
+            window.Topmost = true;
+            window.Activate();
+            window.Show() ;
 
             /*
 
@@ -90,7 +96,7 @@ namespace Screen_Capture.MVVM.ViewModel
         public ScreenShotViewModel()
         {
         
-            CanvasView = new CanvasViewModel();
+           
         }
     }
 }

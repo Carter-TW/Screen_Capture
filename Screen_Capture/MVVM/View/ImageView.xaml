@@ -11,11 +11,7 @@
     <Border Width="{Binding ActualWidth, ElementName=imageview, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=imageview, Mode=OneWay}"  ClipToBounds="True">
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" AllowDrop="True"   >
             <Canvas   ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto"  Background="{Binding  Canvas_Brush}"  Width="{Binding Canvas_Width}" Height="{Binding Canvas_Height}"    >
-
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Loaded">
-                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="Cvs_Loaded"></ei:CallMethodAction>
-                    </i:EventTrigger>
                     <i:EventTrigger EventName="MouseLeftButtonDown">
                         <ei:CallMethodAction TargetObject="{Binding}" MethodName="Cvs_MouseLeftButtonDown"></ei:CallMethodAction>
                     </i:EventTrigger>

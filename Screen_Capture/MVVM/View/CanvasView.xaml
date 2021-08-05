@@ -16,9 +16,7 @@
             <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.image}"></ImageBrush>
         </Canvas.Background>
         <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Loaded">
-                <ei:CallMethodAction TargetObject="{Binding}" MethodName="Canvas_Loaded"></ei:CallMethodAction>
-            </i:EventTrigger>
+     
             <i:EventTrigger  EventName="MouseLeftButtonDown" >
                 <!-- canvas_view 等於這個UserControl -->
                 <ei:CallMethodAction  TargetObject="{Binding  ElementName=canvas_view, Path=DataContext}"  MethodName="MouseLeftButtonDown"/>

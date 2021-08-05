@@ -160,7 +160,7 @@ namespace Screen_Capture.MVVM.ViewModel
             DoubleCollection c = new DoubleCollection();  //設定Dash的間距
             c.Add(2);
             R_rect.StrokeDashArray = c;
-            Point tmp = GetSize(origin, end);
+           
             Canvas.SetLeft(R_rect, start.X);
             Canvas.SetLeft(R_rect, start.Y);
             canvas.Children.Add(R_rect);
@@ -170,9 +170,9 @@ namespace Screen_Capture.MVVM.ViewModel
             end = point;
             if (end.X < start.X) start.X = end.X;
             if (end.Y < start.Y) start.Y = end.Y;
-            Point point1 = GetSize(end, origin);
-            R_rect.Width = point1.X;
-            R_rect.Height = point1.Y;
+            Size point1 = GetSize(end, origin);
+            R_rect.Width = point1.Width;
+            R_rect.Height = point1.Height;
             Canvas.SetLeft(R_rect, start.X);
             Canvas.SetTop(R_rect, start.Y);
         }
@@ -182,14 +182,14 @@ namespace Screen_Capture.MVVM.ViewModel
 
             originBrush.ImageSource = GetRenderTargetBitmap(canvas); //畫完Region的背景圖
             canvas.Children.Remove(R_rect); //先移除Region 重繪背景之後再加入
-            Point tmp = GetSize(end, origin);
+            Size tmp = GetSize(end, origin);
             ImageBrush imageBrush = new ImageBrush();
 
             imageBrush.ImageSource = GetRenderTargetBitmap(canvas);
 
 
             //切割canvas 給 Rect的背景 
-            BitmapSource bitmap = CutImage((BitmapSource)imageBrush.ImageSource, new Int32Rect((int)start.X, (int)start.Y, (int)tmp.X, (int)tmp.Y));
+            BitmapSource bitmap = CutImage((BitmapSource)imageBrush.ImageSource, new Int32Rect((int)start.X, (int)start.Y, (int)tmp.Width, (int)tmp.Height));
             imageBrush.ImageSource = (ImageSource)bitmap;
             Global_ImageSource = imageBrush.Clone();
             R_rect.Fill = imageBrush;
@@ -238,12 +238,12 @@ namespace Screen_Capture.MVVM.ViewModel
         private void MLD_Rect_Fun(Canvas canvas, Point point)
         {
             origin = end = start = point;
-            Point tmp = GetSize(start, end);
+            Size tmp = GetSize(start, end);
 
 
             //    DragElem dragElem = new DragElem(canvas, element);
-            control.Width = tmp.X;
-            control.Height = tmp.Y;
+            control.Width = tmp.Width;
+            control.Height = tmp.Height;
             Canvas.SetLeft(control, point.X);
             Canvas.SetTop(control, point.Y);
             canvas.Children.Add(control);
@@ -254,9 +254,9 @@ namespace Screen_Capture.MVVM.ViewModel
             end = point;
             if (end.X < start.X) start.X = end.X;
             if (end.Y < start.Y) start.Y = end.Y;
-            Point tmp = GetSize(origin, end);
-            control.Width = tmp.X;
-            control.Height = tmp.Y;
+            Size tmp = GetSize(origin, end);
+            control.Width = tmp.Width;
+            control.Height = tmp.Height;
             Canvas.SetLeft(control, start.X);
             Canvas.SetTop(control, start.Y);
         }
@@ -267,11 +267,13 @@ namespace Screen_Capture.MVVM.ViewModel
         }
         #endregion
 
-        private Point GetSize(Point first, Point second)
+        private Size GetSize(Point first, Point second)
         {
+          
+                
             double width = Math.Abs(first.X - second.X);
             double height = Math.Abs(first.Y - second.Y);
-            return new Point(width, height);
+            return new Size(width, height);
         }
         private RenderTargetBitmap GetRenderTargetBitmap(FrameworkElement element)
         {
@@ -298,7 +300,7 @@ namespace Screen_Capture.MVVM.ViewModel
             FrameworkElement element = canvas.InputHitTest(point) as FrameworkElement;
             if (element == null)
             {
-                Console.WriteLine("Hit null");
+            
                 return null;
             }
 
@@ -307,13 +309,13 @@ namespace Screen_Capture.MVVM.ViewModel
                 Canvas test = element as Canvas;
                 if (test == null)
                 {
-                    Console.WriteLine("QAQ");
+                    
                     return element;
                 }
                 else
                 {
 
-                    Console.WriteLine("canvas");
+                 
                     return null;
                 }
             }
@@ -329,14 +331,7 @@ namespace Screen_Capture.MVVM.ViewModel
 
             else return null;
         }
-        public void Cvs_Loaded(object sender, RoutedEventArgs e)
-        {
-            MyCanvas = sender as Canvas;
-         //   MyCanvas.Width = Canvas_Width;
-           // MyCanvas.Height = Canvas_Height;
-            Console.WriteLine("test");
-           
-        }
+   
 
  
         #endregion
@@ -357,9 +352,7 @@ namespace Screen_Capture.MVVM.ViewModel
             else Canvas_Brush = b;
             
             
-        //    Canvas.SetLeft(rect, 0);
-          //  Canvas.SetLeft(rect, 0);
-            //canvas.Children.Add(rect);
+     
         }
     }
 }
